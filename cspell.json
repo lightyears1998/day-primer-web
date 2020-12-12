@@ -1,6 +1,8 @@
 {
-  "allowCompoundWords": true,
-  "words": [
-    "esnext"
-  ]
+    "version": "0.1",
+    "allowCompoundWords": true,
+    "words": [
+        "clsx",
+        "esnext"
+    ]
 }
