@@ -5,15 +5,21 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { DataGrid } from "@material-ui/data-grid";
 
+import Link from "../components/Link";
+
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       textAlign: "center", paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4)
+    },
+    button: {
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2)
     }
   })
 );
 
-const HomePage = (): JSX.Element => {
+export default function HomePage(): JSX.Element {
   const classes = useStyles({});
 
   const [documentPath, setDocumentPath] = React.useState("");
@@ -53,9 +59,10 @@ const HomePage = (): JSX.Element => {
         <Button variant="contained" color="secondary" onClick={openDocumentPath}>
           打开数据文件夹
         </Button>
+        <Button className={classes.button}>
+          <Link href="/settings">打开设置</Link>
+        </Button>
       </div>
     </React.Fragment>
   );
-};
-
-export default HomePage;
+}

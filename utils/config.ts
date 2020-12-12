@@ -27,5 +27,4 @@ export function removeServerConfig(config: ServerConfig): void {
   if (configs.indexOf(config) !== -1) {
     setServerConfigs(configs.splice(configs.indexOf(config), 1));
   }
-
 }

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Next = (): JSX.Element => {
+export default function NextPage(): JSX.Element {
   const classes = useStyles({});
 
   return (
@@ -41,6 +41,4 @@ const Next = (): JSX.Element => {
       </div>
     </React.Fragment>
   );
-};
-
-export default Next;
+}

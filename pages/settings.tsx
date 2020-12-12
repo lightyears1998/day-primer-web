@@ -1,4 +1,4 @@
-export default function SettingIndexPage(): JSX.Element {
+export default function SettingsPage(): JSX.Element {
   const serverConfig = [];
 
   return (
