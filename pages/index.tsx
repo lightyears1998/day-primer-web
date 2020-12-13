@@ -90,10 +90,10 @@ export default function HomePage(): JSX.Element {
           缓存的凭证：({user.userId}) {user.username}
         </Typography>}
         {
-          userInfoLoading && <Typography>正在加载用户信息。</Typography>
+          userInfoLoading && <Typography gutterBottom>正在加载用户信息。</Typography>
         }
         {
-          userInfoData && <Typography>{JSON.stringify(userInfoData)}</Typography>
+          userInfoData && <Typography gutterBottom>{JSON.stringify(userInfoData)}</Typography>
         }
         {
           user ?

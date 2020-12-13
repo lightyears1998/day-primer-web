@@ -16,5 +16,6 @@ export function setUser(user: User): void {
 }
 
 export function logout(): void {
+  saveConfig(ConfigKey.User, null);
   window.location.reload();
 }

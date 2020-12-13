@@ -2,6 +2,7 @@ import {
   Button,
   createStyles, makeStyles, Paper, Container, Grid, TextField, Box, Snackbar
 } from "@material-ui/core";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 import {
@@ -28,6 +29,8 @@ const useStyles = makeStyles((theme) =>
 export default function SettingsPage(): JSX.Element {
   const classes = useStyles({});
 
+  const router = useRouter();
+
   const [serverUrl, setServerUrl] = useState("");
   const [snackBarOpen, setSnackBarOpen] = useState(false);
 
@@ -52,6 +55,7 @@ export default function SettingsPage(): JSX.Element {
     <Container maxWidth="xl">
       <Snackbar anchorOrigin={{ vertical: "top", horizontal: "center" }} open={snackBarOpen} onClose={() => {
         setSnackBarOpen(false);
+        router.back();
       }} message="服务器地址已更新"></Snackbar>
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={4}>
