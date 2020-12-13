@@ -1,4 +1,5 @@
 export enum ConfigKey {
+  User = "user",
   ServerURl = "server-url"
 }
 

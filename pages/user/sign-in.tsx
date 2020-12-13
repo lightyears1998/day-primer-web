@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -11,8 +11,18 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { gql, useMutation } from "@apollo/client";
+import { useRouter } from "next/router";
 
 import Copyright from "../../components/Copyright";
+import { setUser, User } from "../../lib/user";
+
+const SIGN_IN = gql`mutation ($username: String!, $password: String!) {
+  signIn(username: $username, password: $password) {
+    userId
+    username
+  }
+}`;
 
 const useStyles = makeStyles((theme) => ({
   root: { height: "100vh" },
@@ -43,6 +53,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInPage(): JSX.Element {
   const classes = useStyles();
+  const router = useRouter();
+  const usernameInput = useRef<HTMLInputElement>();
+  const passwordInput = useRef<HTMLInputElement>();
+
+  const [signIn, { loading: signingIn, error: signInError }] = useMutation<{ signIn: User }>(SIGN_IN);
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -55,7 +70,16 @@ export default function SignInPage(): JSX.Element {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          { signingIn && <Typography>正在登录。</Typography> }
+          { signInError && <Typography>{signInError.message}</Typography> }
+          <form className={classes.form} noValidate onSubmit={async (e) => {
+            e.preventDefault();
+            try {
+              const result = await signIn({ variables: { username: usernameInput.current.value, password: passwordInput.current.value } });
+              setUser(result.data.signIn);
+              router.push("/");
+            } catch {}
+          }}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -66,6 +90,7 @@ export default function SignInPage(): JSX.Element {
               name="username"
               autoComplete="username"
               autoFocus
+              inputRef={usernameInput}
             />
             <TextField
               variant="outlined"
@@ -77,6 +102,7 @@ export default function SignInPage(): JSX.Element {
               type="password"
               id="password"
               autoComplete="current-password"
+              inputRef={passwordInput}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
