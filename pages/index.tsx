@@ -5,7 +5,6 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { DataGrid } from "@material-ui/data-grid";
 import { gql, useQuery } from "@apollo/client";
-import { Divider } from "@material-ui/core";
 
 import Link from "../components/Link";
 import { logout, User } from "../lib/user";
@@ -18,6 +17,24 @@ const USER_INFO = gql`query {
   	createdAt
   }
 }`;
+
+const PROJECTS = gql`query {
+  me {
+    projects {
+      projectId
+      name
+      description
+      createdAt
+      updatedAt
+    }
+  }
+}`;
+
+// const PROJECT;
+
+// const ACTIONS;
+
+// const ACTION;
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -54,6 +71,12 @@ export default function HomePage(): JSX.Element {
   const {
     loading: userInfoLoading, error: userInfoError, data: userInfoData
   } = useQuery(USER_INFO);
+
+  const {
+    loading: projectsLoading, error: projectsLoadingError, data: projects
+  } = useQuery(PROJECTS);
+
+  // const {} = useQuery();
 
   return (
     <React.Fragment>
@@ -93,7 +116,7 @@ export default function HomePage(): JSX.Element {
           userInfoLoading && <Typography gutterBottom>正在加载用户信息。</Typography>
         }
         {
-          userInfoData && <Typography gutterBottom>{JSON.stringify(userInfoData)}</Typography>
+          (userInfoError || userInfoData) && <Typography gutterBottom>{JSON.stringify(userInfoError)} {JSON.stringify(userInfoData)}</Typography>
         }
         {
           user ?

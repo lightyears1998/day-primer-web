@@ -2,6 +2,7 @@
     "version": "0.1",
     "allowCompoundWords": true,
     "words": [
+        "ampm",
         "clsx",
         "esnext"
     ]

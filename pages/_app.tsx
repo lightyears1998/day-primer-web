@@ -6,6 +6,8 @@ import type { AppProps } from "next/app";
 import {
   ApolloClient, ApolloClientOptions, ApolloProvider, InMemoryCache, NormalizedCacheObject
 } from "@apollo/client";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import MomentUtils from "@date-io/moment";
 
 import { theme } from "../lib/theme";
 import {
@@ -51,7 +53,9 @@ export default function MyApp(props: AppProps): JSX.Element {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ApolloProvider client={apolloClient}>
-          <Component {...pageProps} />
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <Component {...pageProps} />
+          </MuiPickersUtilsProvider>
         </ApolloProvider>
       </ThemeProvider>
     </React.Fragment>
